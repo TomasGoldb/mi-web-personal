@@ -64,7 +64,6 @@ public class HomeController : Controller
                 }
             } else{
                 ViewBag.error=FormatearError("ERROR_004_MailIncorrecto");
-                Console.WriteLine("aa");
                 return View("login");
             }
     }
