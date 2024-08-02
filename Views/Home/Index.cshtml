@@ -3,5 +3,12 @@
 }
 
 
- <a href='@Url.Action("login","Home")'>login</a>
+
+ <a href='@Url.Action("register","Home")'>register</a>
   <a href='@Url.Action("login","Home")'>login</a>
+
+  @{
+        if(ViewBag.estaLogeado==true){
+            <p>Hola, @ViewBag.usuario.Nombre</p>
+    }
+  }

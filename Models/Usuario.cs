@@ -6,6 +6,7 @@ namespace mi_web_personal.Models{
         public string Nick {get;set;}
         private string Contrasena {get;set;}
         public string Mail {set; private get;}
+        public string FotoPerfil {get;set;}
 
 
         public Usuario(string nombre, string nick,string contrasena, string mail){

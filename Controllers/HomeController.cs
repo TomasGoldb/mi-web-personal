@@ -1,16 +1,20 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using mi_web_personal.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace mi_web_personal.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private IWebHostEnvironment Environment;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment)
     {
         _logger = logger;
+        Environment=environment;
     }
 
     public IActionResult Index()
@@ -55,8 +59,9 @@ public class HomeController : Controller
             }
             if(coincide){
                 if(contra==DB.Seleccionar($"select * from Usuario where mail='{mail}'")[0].GetContrasena()){
-                    Sesion.EstaLogeado=true;
+                    Sesion.SetearSesion(DB.Seleccionar($"select * from Usuario where mail='{mail}'")[0]);
                     ViewBag.estaLogeado=Sesion.EstaLogeado;
+                    ViewBag.usuario=DB.Seleccionar($"select * from Usuario where mail='{mail}'")[0];
                     return View("index");
                 }else{
                     ViewBag.error=FormatearError("ERROR_003_ContraIncorrecta");
@@ -66,6 +71,17 @@ public class HomeController : Controller
                 ViewBag.error=FormatearError("ERROR_004_MailIncorrecto");
                 return View("login");
             }
+    }
+    [HttpPost]
+    public IActionResult ActualizarFotoPerfil(IFormFile archivo){
+        if(archivo.Length>0){
+            string wwwRootLocal=this.Environment.ContentRootPath+@"\wwwroot\fotosPerfil\"+archivo.FileName;
+            Sesion.userActual.FotoPerfil=@"fotosPerfil\"+archivo.FileName;
+            using(var stream=System.IO.File.Create(wwwRootLocal)){
+                archivo.CopyToAsync(stream);
+            }
+        }
+        return View("index");
     }
     public IActionResult login()
     {
@@ -81,6 +97,9 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+    public IActionResult setearFotoPerfil(){
+        return View();
     }
     private string FormatearError(string error)
     {

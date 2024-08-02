@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<main class="pagina-login-register">
+<div class="container">
+        <h1>Actualizar la foto de perfil</h1>
+        <form action='@Url.Action("ActualizarFotoPerfil", "Home")' method="post" enctype="multipart/form-data">
+        <div class="input-group">
+  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="archivo">
+</div>
+            @Html.Raw(ViewBag.error)
+            <button type="submit">Actualizar</button>
+        </form>
+    </div>
+
+</main>
+  
+
+
+ 
+ 

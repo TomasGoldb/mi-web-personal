@@ -33,8 +33,11 @@ body {
   height: 100vh;
   margin: 0;
 }
+.pagina-login-register{
+  width: 100%;
+}
 
-.container {
+.pagina-login-register .container {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -43,22 +46,22 @@ body {
   max-width: 400px;
 }
 
-h1 {
+.pagina-login-register h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.form-group {
+.pagina-login-register .form-group {
   margin-bottom: 15px;
 }
 
-.form-group label {
+.pagina-login-register .form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.form-group input {
+.pagina-login-register .form-group input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -66,7 +69,7 @@ h1 {
   box-sizing: border-box;
 }
 
-button {
+.pagina-login-register button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -78,6 +81,8 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.pagina-login-register button:hover {
   background-color: #0056b3;
 }
+
+

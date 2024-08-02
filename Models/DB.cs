@@ -4,7 +4,7 @@ using Dapper;
 namespace mi_web_personal.Models{
 public class DB
 {
-   private static string _connectionString {get;set;} = @"Server=A-PHZ2-CIDI-16;DataBase=IsTravel;Trusted_Connection=true;";
+   private static string _connectionString {get;set;} = @"Server=A-PHZ2-AMI-06;DataBase=IsTravel;Trusted_Connection=true;";
 
 
     public static List<Usuario> Seleccionar(string sql){
