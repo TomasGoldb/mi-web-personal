@@ -76,12 +76,18 @@ public class HomeController : Controller
     public IActionResult ActualizarFotoPerfil(IFormFile archivo){
         if(archivo.Length>0){
             string wwwRootLocal=this.Environment.ContentRootPath+@"\wwwroot\fotosPerfil\"+archivo.FileName;
-            Sesion.userActual.FotoPerfil=@"fotosPerfil\"+archivo.FileName;
+            Sesion.userActual.FotoPerfil=@"\fotosPerfil\"+archivo.FileName;
+            DB.UpdateFotoPerfil(Sesion.userActual);
             using(var stream=System.IO.File.Create(wwwRootLocal)){
                 archivo.CopyToAsync(stream);
             }
+            ViewBag.fotoPerfil=Sesion.userActual.FotoPerfil;
+            return View("index");
+        } else{
+            ViewBag.error=FormatearError("ERROR_004_SinArchivo");
+            return View("setearFotoPerfil");
         }
-        return View("index");
+        
     }
     public IActionResult login()
     {

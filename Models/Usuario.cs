@@ -30,6 +30,7 @@ namespace mi_web_personal.Models{
         public string GetMail(){
             return Mail;
         }
+        
 
     }
 }
