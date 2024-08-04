@@ -20,6 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+*{
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid black;
+}
 
 
 
@@ -86,3 +91,52 @@ body {
 }
 
 
+.botones-reg-log{
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+.botones-reg-log a{
+  padding: 2%;
+  font-size: 4vw;
+  text-decoration: none;
+  color: white;
+  border-radius: 7px;
+  background-color: #1675db;
+  transition: background-color 0.2s ease-in;
+}
+
+.botones-reg-log a:hover{
+  background-color: #0056b3;;
+}
+
+.indexjeje{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.nombre-logeado{
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.nombre-logeado p{
+  font-size: 2vw;
+  text-align: center;
+}
+
+.boton-logout{
+  padding: 1%;
+  font-size: 1.5vw;
+  text-decoration: none;
+  color: white;
+  border-radius: 7px;
+  background-color: #1675db;
+  transition: background-color 0.2s ease-in;
+}

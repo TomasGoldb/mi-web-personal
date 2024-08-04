@@ -3,6 +3,7 @@
 }
 
 
+<main class="pagina-login-register">
 <div class="container">
         <h1>Registrarme</h1>
         <form action='@Url.Action("RegistrarUsuario", "Home")' method="post">
@@ -27,11 +28,11 @@
   <label for="floatingInput">Repetir contraseña</label>
 </div>
 
-<div id="liveAlertPlaceholder"></div>
-<button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button>
+@Html.Raw(ViewBag.error)
             <button type="submit">Registrarse</button>
         </form>
     </div>
+    </main>
 
     <script>
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder')

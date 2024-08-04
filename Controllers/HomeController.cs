@@ -19,6 +19,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewBag.estaLogeado=Sesion.EstaLogeado;
+        ViewBag.usuario=Sesion.userActual;
         return View();
     }
     public IActionResult register()
@@ -38,13 +40,14 @@ public class HomeController : Controller
             if (!coincide){
                 ViewBag.error="";
                 DB.CrearUsuario(user);
+                Sesion.SetearSesion(user);
                 return RedirectToAction("index");
             } else{
-                ViewBag.error="ERROR_001_YaExiste";
+                ViewBag.error=FormatearError("ERROR_001_YaExisteNickoMail");
                 return View("register");
             }
         } else{
-            ViewBag.error="ERROR_002_ContraNoCoincide";
+            ViewBag.error=FormatearError("ERROR_002_ContraNoCoincide");
             return View("register");
         }
         
@@ -62,7 +65,7 @@ public class HomeController : Controller
                     Sesion.SetearSesion(DB.Seleccionar($"select * from Usuario where mail='{mail}'")[0]);
                     ViewBag.estaLogeado=Sesion.EstaLogeado;
                     ViewBag.usuario=DB.Seleccionar($"select * from Usuario where mail='{mail}'")[0];
-                    return View("index");
+                    return RedirectToAction("index");
                 }else{
                     ViewBag.error=FormatearError("ERROR_003_ContraIncorrecta");
                     return View("login");
@@ -93,6 +96,10 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult logout(){
+        Sesion.LogOut();
+        return View("Index");
+    }
 
     public IActionResult Privacy()
     {
@@ -109,7 +116,16 @@ public class HomeController : Controller
     }
     private string FormatearError(string error)
     {
-        
-        return "<div class='alert alert-danger alert-dismissible' role='alert'><div>"+ error + "</div>   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+        string mensaje=error;
+        if(error=="ERROR_001_YaExisteNickoMail"){
+            mensaje="Ya existe un usuario con ese nick o mail.";
+        }else if(error=="ERROR_002_ContraNoCoincide"){
+            mensaje="Las contraseñas no coinciden.";
+        }else if(error=="ERROR_003_ContraIncorrecta"){
+            mensaje="La contraseña es incorrecta.";
+        }else if(error=="ERROR_004_SinArchivo"){
+            mensaje="No has ingresado ningún archivo!";
+        }
+        return "<div class='alert alert-danger alert-dismissible' role='alert'><div>"+ mensaje + "</div>   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
     }
 }

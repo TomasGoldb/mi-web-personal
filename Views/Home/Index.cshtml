@@ -2,16 +2,27 @@
     ViewData["Title"] = "Home Page";
 }
 
+<main class="indexjeje">
 
 
- <a href='@Url.Action("register","Home")'>register</a>
-  <a href='@Url.Action("login","Home")'>login</a>
-
+<div class="nombre-logeado">
   @{
         if(ViewBag.estaLogeado==true){
-            <p>Hola, @ViewBag.usuario.Nombre</p>
+            <img src="@ViewBag.fotoPerfil">
+            <p>Hola, @ViewBag.usuario.Nick</p>
+            
+            <a class="boton-logout" href='@Url.Action("logout","Home")'>Log out</a>
+            
+    } else{
+<div class="botones-reg-log">
+    <a href='@Url.Action("login","Home")'>Login</a>
+ <a href='@Url.Action("register","Home")'>Register</a>
+  
+</div>
     }
   }
+</div>
+  
 
-  <img src="@ViewBag.fotoPerfil">
-  <img src="/fotosPerfil/hq720.jpg">
+
+</main>
