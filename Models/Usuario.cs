@@ -30,6 +30,21 @@ namespace mi_web_personal.Models{
         public string GetMail(){
             return Mail;
         }
+        public bool CambiarFoto(IFormFile archivo, IWebHostEnvironment environment){
+            if(archivo.Length>0){
+            string wwwRootLocal=environment.ContentRootPath+@"\wwwroot\fotosPerfil\"+archivo.FileName;
+            Sesion.userActual.FotoPerfil=@"\fotosPerfil\"+archivo.FileName;
+            DB.UpdateFotoPerfil(Sesion.userActual);
+            using(var stream=System.IO.File.Create(wwwRootLocal)){
+                archivo.CopyToAsync(stream);
+            }
+            
+            return true;
+        } else{
+            
+            return false;
+        }
+        }
         
 
     }

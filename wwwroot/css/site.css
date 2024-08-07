@@ -23,7 +23,6 @@ body {
 *{
   margin: 0px;
   padding: 0px;
-  border: 1px solid black;
 }
 
 
@@ -139,4 +138,9 @@ body {
   border-radius: 7px;
   background-color: #1675db;
   transition: background-color 0.2s ease-in;
+}
+
+.foto-perfil{
+  width: 10%;
+  border-radius: 50%;
 }

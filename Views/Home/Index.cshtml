@@ -8,7 +8,7 @@
 <div class="nombre-logeado">
   @{
         if(ViewBag.estaLogeado==true){
-            <img src="@ViewBag.fotoPerfil">
+            <img class="foto-perfil" src="@ViewBag.fotoPerfil">
             <p>Hola, @ViewBag.usuario.Nick</p>
             
             <a class="boton-logout" href='@Url.Action("logout","Home")'>Log out</a>

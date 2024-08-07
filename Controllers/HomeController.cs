@@ -21,6 +21,11 @@ public class HomeController : Controller
     {
         ViewBag.estaLogeado=Sesion.EstaLogeado;
         ViewBag.usuario=Sesion.userActual;
+        if(setearFotoPerfil!=null){
+        ViewBag.fotoPerfil=Sesion.userActual.FotoPerfil;
+        }else{
+            ViewBag.fotoPerfil=@"\fotosPerfil\perfilVacio.png";
+        }
         return View();
     }
     public IActionResult register()
@@ -71,24 +76,19 @@ public class HomeController : Controller
                     return View("login");
                 }
             } else{
-                ViewBag.error=FormatearError("ERROR_004_MailIncorrecto");
+                ViewBag.error=FormatearError("ERROR_005_MailIncorrecto");
                 return View("login");
             }
     }
-    [HttpPost]
+
     public IActionResult ActualizarFotoPerfil(IFormFile archivo){
-        if(archivo.Length>0){
-            string wwwRootLocal=this.Environment.ContentRootPath+@"\wwwroot\fotosPerfil\"+archivo.FileName;
-            Sesion.userActual.FotoPerfil=@"\fotosPerfil\"+archivo.FileName;
-            DB.UpdateFotoPerfil(Sesion.userActual);
-            using(var stream=System.IO.File.Create(wwwRootLocal)){
-                archivo.CopyToAsync(stream);
-            }
-            ViewBag.fotoPerfil=Sesion.userActual.FotoPerfil;
-            return View("index");
-        } else{
+        bool seCambio=Sesion.userActual.CambiarFoto(archivo, Environment);
+        if(seCambio){
+            
+            return RedirectToAction("index");
+        }else{
             ViewBag.error=FormatearError("ERROR_004_SinArchivo");
-            return View("setearFotoPerfil");
+            return View("setearfotoperfil");
         }
         
     }
@@ -125,6 +125,8 @@ public class HomeController : Controller
             mensaje="La contraseña es incorrecta.";
         }else if(error=="ERROR_004_SinArchivo"){
             mensaje="No has ingresado ningún archivo!";
+        } else if(error=="ERROR_005_MailIncorrecto"){
+            mensaje="El mail ingresado es incorrecto.";
         }
         return "<div class='alert alert-danger alert-dismissible' role='alert'><div>"+ mensaje + "</div>   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
     }

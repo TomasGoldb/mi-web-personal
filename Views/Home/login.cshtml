@@ -7,11 +7,11 @@
         <h1>Logearse</h1>
         <form action='@Url.Action("LogearUsuario", "Home")' method="post">
             <div class="form-floating mb-3">
-  <input type="email" class="form-control" id="floatingInput" placeholder="" name="mail">
+  <input type="email" class="form-control" id="floatingInput" autocomplete="off" placeholder="" name="mail">
   <label for="floatingInput">Mail</label>
 </div>
             <div class="form-floating mb-3">
-  <input type="password" class="form-control" id="floatingInput" placeholder="" name="contra">
+  <input type="password" class="form-control" id="floatingInput" autocomplete="off" placeholder="" name="contra">
   <label for="floatingInput">Contraseña</label>
 </div>
 @Html.Raw(ViewBag.error)
